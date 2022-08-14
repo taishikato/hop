@@ -21,6 +21,7 @@
     "@solidjs/router": "^0.4.2",
     "@stitches/core": "^1.2.8",
     "@supabase/supabase-js": "^1.35.6",
+    "daisyui": "^2.24.0",
     "solid-icons": "^1.0.1",
     "solid-js": "^1.4.7",
     "solid-transition-group": "^0.0.10"
