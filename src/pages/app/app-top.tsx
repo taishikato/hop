@@ -19,6 +19,7 @@ const AppTop = () => {
 
   return (
     <div class="w-full">
+      <div class="text-2xl font-bold text-center mb-8">Job Post here</div>
       <div class="flex items-center justify-center gap-x-10">
         <div class="p-5 rounded-full bg-slate-400">
           <IoClose size={24} color="#000000" />
