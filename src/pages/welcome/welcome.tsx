@@ -1,4 +1,5 @@
 import supabase from "../../supabaseClient";
+import { useNavigate } from "@solidjs/router";
 import { IoCheckmarkCircle } from "solid-icons/io";
 import { createSignal } from "solid-js";
 import {
@@ -49,6 +50,7 @@ const Welcome = () => {
   const [email, setEmail] = createSignal("");
   const [selectedSkills, setSelectedSkills] = createSignal(new Set());
   const [registering, setRegistering] = createSignal(false);
+  const navigate = useNavigate();
 
   const register = async () => {
     setRegistering(true);
@@ -68,6 +70,8 @@ const Welcome = () => {
       });
 
     setRegistering(false);
+
+    navigate("/app");
   };
 
   return (
