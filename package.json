@@ -17,8 +17,12 @@
     "vite-plugin-solid": "^2.3.0"
   },
   "dependencies": {
+    "@hope-ui/solid": "^0.6.7",
     "@solidjs/router": "^0.4.2",
+    "@stitches/core": "^1.2.8",
+    "@supabase/supabase-js": "^1.35.6",
     "solid-icons": "^1.0.1",
-    "solid-js": "^1.4.7"
+    "solid-js": "^1.4.7",
+    "solid-transition-group": "^0.0.10"
   }
 }

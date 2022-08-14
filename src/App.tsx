@@ -4,6 +4,7 @@ import { Routes, Route } from "@solidjs/router";
 import Layout from "./components/Layout";
 import AppTop from "./pages/app/app-top";
 const Profile = lazy(() => import("./pages/profile/profile"));
+const Welcome = lazy(() => import("./pages/welcome/welcome"));
 
 const App: Component = () => {
   return (
@@ -11,6 +12,7 @@ const App: Component = () => {
       <Routes>
         <Route path="/app" component={AppTop} />
         <Route path="/profile" component={Profile} />
+        <Route path="/welcome" component={Welcome} />
       </Routes>
     </Layout>
   );
