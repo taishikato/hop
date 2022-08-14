@@ -1,5 +1,7 @@
-import { children } from "solid-js";
-import { Link, NavLink } from "@solidjs/router";
+import { children, createEffect } from "solid-js";
+import { Link, NavLink, useNavigate } from "@solidjs/router";
+import supabase from "../supabaseClient";
+import createLoginStatus from "../store/createLoginStatus";
 import {
   Button,
   Modal,
@@ -12,8 +14,38 @@ import {
 } from "@hope-ui/solid";
 
 const Layout = (props) => {
+  const { login, logout, isLogin } = createLoginStatus;
   const { isOpen, onOpen, onClose } = createDisclosure();
+  const navigate = useNavigate();
   const c = children(() => props.children);
+
+  const handleLogin = async () => {
+    const { user, session, error } = await supabase.auth.signIn({
+      provider: "github",
+    });
+  };
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    logout();
+  };
+
+  createEffect(() => {
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === "SIGNED_IN") {
+        login();
+        const { data, error } = await supabase
+          .from("users")
+          .select()
+          .eq("id", session.user.id);
+
+        if (data.length > 0) return;
+
+        // For the user who log-in for the first time
+        navigate("/welcome");
+      }
+    });
+  });
 
   return (
     <>
@@ -25,20 +57,30 @@ const Layout = (props) => {
               href="/"
               class="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-500  to-blue-500"
             >
-              Header
+              Hop
             </Link>
-            <NavLink
+            {/* <NavLink
               href="/profile"
               class="px-4 py-2 font-bold text-base hover:bg-gray-900 rounded-3xl"
             >
               Profile
-            </NavLink>
-            <button
-              class="px-4 py-2 font-bold text-base hover:bg-gray-900 rounded-3xl"
-              onClick={onOpen}
-            >
-              Login/Sign up
-            </button>
+            </NavLink> */}
+
+            {isLogin() ? (
+              <button
+                class="px-4 py-2 font-bold text-base hover:bg-gray-900 rounded-3xl"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                class="px-4 py-2 font-bold text-base hover:bg-gray-900 rounded-3xl"
+                onClick={onOpen}
+              >
+                Login/Sign up
+              </button>
+            )}
           </div>
         </header>
         {c()}
@@ -50,7 +92,7 @@ const Layout = (props) => {
           {/* <ModalCloseButton /> */}
           <ModalHeader>Login/Sign up</ModalHeader>
           <ModalBody class="text-center">
-            <Button colorScheme="accent" size="lg">
+            <Button colorScheme="accent" size="lg" onClick={handleLogin}>
               Login
             </Button>
           </ModalBody>
