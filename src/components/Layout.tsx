@@ -1,5 +1,5 @@
 import { children, createEffect } from "solid-js";
-import { Link, NavLink, useNavigate, useLocation } from "@solidjs/router";
+import { useNavigate, useLocation } from "@solidjs/router";
 import supabase from "../supabaseClient";
 import createLoginStatus from "../store/createLoginStatus";
 import {
@@ -12,11 +12,12 @@ import {
   ModalOverlay,
   createDisclosure,
 } from "@hope-ui/solid";
+import Header from "./Header/Header";
 
 const Layout = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { login, logout, isLogin } = createLoginStatus;
+  const { login } = createLoginStatus;
   const { isOpen, onOpen, onClose } = createDisclosure();
   const c = children(() => props.children);
 
@@ -24,11 +25,6 @@ const Layout = (props) => {
     const { user, session, error } = await supabase.auth.signIn({
       provider: "github",
     });
-  };
-
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    logout();
   };
 
   createEffect(() => {
@@ -57,39 +53,7 @@ const Layout = (props) => {
   return (
     <>
       <div class="bg-black text-slate-100 flex flex-col gap-y-10 min-h-screen pb-10">
-        <header class="border-b border-slate-900 p-3">
-          <div class="flex justify-between items-center w-[80%] mx-auto">
-            <div />
-            <Link
-              href="/"
-              class="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-500  to-blue-500"
-            >
-              Hop
-            </Link>
-            {/* <NavLink
-              href="/profile"
-              class="px-4 py-2 font-bold text-base hover:bg-gray-900 rounded-3xl"
-            >
-              Profile
-            </NavLink> */}
-
-            {isLogin() ? (
-              <button
-                class="px-4 py-2 font-bold text-base hover:bg-gray-900 rounded-3xl"
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
-            ) : (
-              <button
-                class="px-4 py-2 font-bold text-base hover:bg-gray-900 rounded-3xl"
-                onClick={onOpen}
-              >
-                Login/Sign up
-              </button>
-            )}
-          </div>
-        </header>
+        <Header onOpen={onOpen} />
         {c()}
       </div>
       {/* start Modal */}
