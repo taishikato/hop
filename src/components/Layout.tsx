@@ -1,5 +1,5 @@
 import { children, createEffect } from "solid-js";
-import { Link, NavLink, useNavigate } from "@solidjs/router";
+import { Link, NavLink, useNavigate, useLocation } from "@solidjs/router";
 import supabase from "../supabaseClient";
 import createLoginStatus from "../store/createLoginStatus";
 import {
@@ -14,9 +14,10 @@ import {
 } from "@hope-ui/solid";
 
 const Layout = (props) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { login, logout, isLogin } = createLoginStatus;
   const { isOpen, onOpen, onClose } = createDisclosure();
-  const navigate = useNavigate();
   const c = children(() => props.children);
 
   const handleLogin = async () => {
@@ -32,18 +33,24 @@ const Layout = (props) => {
 
   createEffect(() => {
     supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "SIGNED_IN") {
-        login();
-        const { data, error } = await supabase
-          .from("users")
-          .select()
-          .eq("id", session.user.id);
+      if (event !== "SIGNED_IN") return;
 
-        if (data.length > 0) return;
+      login();
 
-        // For the user who log-in for the first time
-        navigate("/welcome");
+      const { data, error } = await supabase
+        .from("users")
+        .select()
+        .eq("id", session.user.id);
+
+      if (data.length > 0) {
+        if (location.pathname === "/app") return;
+
+        navigate("/app");
+        return;
       }
+
+      // For the user who log-in for the first time
+      navigate("/welcome");
     });
   });
 
