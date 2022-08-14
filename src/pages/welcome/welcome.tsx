@@ -1,7 +1,13 @@
 import supabase from "../../supabaseClient";
 import { IoCheckmarkCircle } from "solid-icons/io";
 import { createSignal } from "solid-js";
-import { Badge, Input, FormLabel, Button } from "@hope-ui/solid";
+import {
+  Badge,
+  Input,
+  FormLabel,
+  Button,
+  notificationService,
+} from "@hope-ui/solid";
 
 const skills = [
   {
@@ -54,6 +60,12 @@ const Welcome = () => {
       email: email(),
       skills: Array.from(selectedSkills()),
     });
+
+    if (error === null)
+      notificationService.show({
+        status: "success",
+        title: "Registered Successfully",
+      });
 
     setRegistering(false);
   };

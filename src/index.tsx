@@ -2,7 +2,11 @@
 import "./index.css";
 import { render } from "solid-js/web";
 import { Router } from "@solidjs/router";
-import { HopeProvider, HopeThemeConfig } from "@hope-ui/solid";
+import {
+  HopeProvider,
+  NotificationsProvider,
+  HopeThemeConfig,
+} from "@hope-ui/solid";
 
 import App from "./App";
 
@@ -14,7 +18,9 @@ render(
   () => (
     <Router>
       <HopeProvider config={config}>
-        <App />
+        <NotificationsProvider>
+          <App />
+        </NotificationsProvider>
       </HopeProvider>
     </Router>
   ),
