@@ -73,6 +73,7 @@ const Welcome = () => {
           <FormLabel for="email">Email address</FormLabel>
           <Input
             id="email"
+            type="email"
             placeholder="jack@twitter.com"
             onChange={(e) => setEmail(e.currentTarget.value)}
           />
