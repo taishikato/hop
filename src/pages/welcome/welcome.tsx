@@ -59,7 +59,7 @@ const Welcome = () => {
   };
 
   return (
-    <div class="mx-auto w-[800px]">
+    <div class="mx-auto max-w-[800px] w-full px-3">
       <h2 class="text-2xl font-bold mb-2">Welcome</h2>
       <div class="mb-5">Let's input your basic information.</div>
       <div class="border border-slate-800 rounded-lg p-8">
