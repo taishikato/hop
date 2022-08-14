@@ -63,54 +63,64 @@ const Welcome = () => {
       <h2 class="text-2xl font-bold mb-2">Welcome</h2>
       <div class="mb-5">Let's input your basic information.</div>
       <div class="border border-slate-800 rounded-lg p-8">
-        <div class="space-y-4 mb-8">
-          <FormLabel for="name">Name</FormLabel>
-          <Input
-            id="name"
-            placeholder="Jack"
-            onChange={(e) => setName(e.currentTarget.value)}
-          />
-          <FormLabel for="email">Email address</FormLabel>
-          <Input
-            id="email"
-            type="email"
-            placeholder="jack@twitter.com"
-            onChange={(e) => setEmail(e.currentTarget.value)}
-          />
-          <FormLabel>Your Skills</FormLabel>
-          <div class="gap-3 flex flex-wrap">
-            {skills.map(({ title, value }) => (
-              <Badge
-                colorScheme="primary"
-                p={8}
-                cursor="pointer"
-                class="items-center gap-x-2"
-                d="inline-flex"
-                onClick={() => {
-                  setSelectedSkills((prev) => {
-                    const clone = new Set(prev);
-                    if (clone.has(value)) {
-                      clone.delete(value);
-                    } else {
-                      clone.add(value);
-                    }
-                    return clone;
-                  });
-                }}
-              >
-                {selectedSkills().has(value) && (
-                  <IoCheckmarkCircle size={18} color="#ffffff" />
-                )}
-                {title}
-              </Badge>
-            ))}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            register();
+          }}
+        >
+          <div class="space-y-4 mb-8">
+            <FormLabel for="name">Name</FormLabel>
+            <Input
+              required
+              id="name"
+              placeholder="Jack"
+              onChange={(e) => setName(e.currentTarget.value)}
+            />
+            <FormLabel for="email">Email address</FormLabel>
+            <Input
+              required
+              id="email"
+              type="email"
+              placeholder="jack@twitter.com"
+              onChange={(e) => setEmail(e.currentTarget.value)}
+            />
+            <FormLabel>Your Skills</FormLabel>
+            <div class="gap-3 flex flex-wrap">
+              {skills.map(({ title, value }) => (
+                <Badge
+                  colorScheme="primary"
+                  p={8}
+                  cursor="pointer"
+                  class="items-center gap-x-2"
+                  d="inline-flex"
+                  onClick={() => {
+                    setSelectedSkills((prev) => {
+                      const clone = new Set(prev);
+                      if (clone.has(value)) {
+                        clone.delete(value);
+                      } else {
+                        clone.add(value);
+                      }
+                      return clone;
+                    });
+                  }}
+                >
+                  {selectedSkills().has(value) && (
+                    <IoCheckmarkCircle size={18} color="#ffffff" />
+                  )}
+                  {title}
+                </Badge>
+              ))}
+            </div>
           </div>
-        </div>
-        <div class="text-right">
-          <Button onClick={register} loading={registering()}>
-            Register
-          </Button>
-        </div>
+
+          <div class="text-right">
+            <Button type="submit" loading={registering()}>
+              Register
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   );
