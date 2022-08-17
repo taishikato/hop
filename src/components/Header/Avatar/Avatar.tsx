@@ -1,5 +1,6 @@
 import supabase from "../../../supabaseClient";
 import createLoginStatus from "../../../store/createLoginStatus";
+import { Link } from "@solidjs/router";
 
 const Avatar = () => {
   const { logout } = createLoginStatus;
@@ -22,10 +23,7 @@ const Avatar = () => {
         class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
       >
         <li>
-          <a class="justify-between">Profile</a>
-        </li>
-        <li>
-          <a>Settings</a>
+          <Link href="/profile">Profile</Link>
         </li>
         <li>
           <a

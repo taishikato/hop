@@ -4,4 +4,4 @@
 
 * `/` - redirect to `/app` if the user is logged in, otherwise shows the LP.
 * `/app` - kinda top page for logged in users
-* `/settings` - setting page
+* `/profile` - profile setting page
