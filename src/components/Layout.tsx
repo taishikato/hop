@@ -39,9 +39,6 @@ const Layout = (props) => {
         .eq("id", session.user.id);
 
       if (data.length > 0) {
-        if (location.pathname === "/app") return;
-
-        navigate("/app");
         return;
       }
 
