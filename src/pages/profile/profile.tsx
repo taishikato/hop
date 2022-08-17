@@ -5,6 +5,7 @@ import { createSignal, createEffect } from "solid-js";
 import { skills } from "../../consts/skills";
 import { IoCheckmarkCircle } from "solid-icons/io";
 import { Badge, Input, FormLabel, notificationService } from "@hope-ui/solid";
+import { useNavigate } from "@solidjs/router";
 
 type UserUpdate = {
   id: string;
@@ -16,6 +17,8 @@ type UserUpdate = {
 };
 
 const Profile = () => {
+  const navigate = useNavigate();
+
   const [loginUser, setLoginUser] = createSignal<
     UserUpdate | Record<string, never>
   >({});
@@ -28,6 +31,9 @@ const Profile = () => {
 
   createEffect(async () => {
     const user = supabase.auth.user();
+
+    if (user == null) navigate("/app");
+
     const { data } = await supabase
       .from("users")
       .select()
