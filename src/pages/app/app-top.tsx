@@ -63,8 +63,8 @@ const AppTop = () => {
               }),
             ])}
           />
-          <div>
-            <h3 class="text-lg font-bold">Required Skills</h3>
+          <div class="space-y-3">
+            <h3 class="text-lg font-bold">About this position</h3>
             <div>
               Zapier’s on a mission to make everyone more productive at work. As
               we continue to scale our mission to democratize automation, we’re
