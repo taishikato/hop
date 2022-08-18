@@ -19,8 +19,11 @@ const AppTop = () => {
   const [data] = createResource(id, fetchUser);
 
   return (
-    <div class="w-full">
-      <div class="max-w-[600px] rounded-lg mx-auto border border-slate-800">
+    <div class="w-full flex items-center justify-center gap-x-10">
+      <div class="p-5 rounded-full bg-slate-400">
+        <IoClose size={24} color="#000000" />
+      </div>
+      <div class="max-w-[600px] rounded-lg border border-slate-800">
         <div class="flex-1 p-3">
           <div
             class={cx([
@@ -77,21 +80,10 @@ const AppTop = () => {
           </div>
         </div>
       </div>
-      {/* <div class="text-2xl font-bold text-center mb-8">Job Post here</div>
-      <div class="flex items-center justify-center gap-x-10">
-        <div class="p-5 rounded-full bg-slate-400">
-          <IoClose size={24} color="#000000" />
-        </div>
-        <div class="w-[800px] rounded-3xl bg-slate-900">
-          <div class="p-3">
-            <pre>{JSON.stringify(data(), null, 2)}</pre>
-          </div>
-        </div>
-        <div class="p-5 rounded-full bg-pink-500 flex items-center gap-x-3">
-          <IoMail size={24} color="#ffffff" />
-          <span class="font-semibold">Apply</span>
-        </div>
-      </div> */}
+      <div class="p-5 rounded-full bg-pink-500 flex items-center gap-x-3">
+        <IoMail size={24} color="#ffffff" />
+        {/* <span class="font-semibold">Apply</span> */}
+      </div>
     </div>
   );
 };
