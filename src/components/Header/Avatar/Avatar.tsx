@@ -1,14 +1,17 @@
 import supabase from "../../../supabaseClient";
 import createLoginStatus from "../../../store/createLoginStatus";
-import { Link } from "@solidjs/router";
+import { Link, useNavigate } from "@solidjs/router";
 
 const Avatar = () => {
+  const navigate = useNavigate();
   const { logout } = createLoginStatus;
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
 
     logout();
+
+    navigate("/");
   };
 
   return (
