@@ -83,6 +83,12 @@ const AppTop = () => {
   ) => {
     e.preventDefault();
 
+    if (!isLogin()) {
+      onOpen();
+
+      return;
+    }
+
     const currentIndex = jobPosts().findIndex((p) => p.post.id === post().id);
 
     setJobPosts((prev) => {
@@ -104,8 +110,6 @@ const AppTop = () => {
     }
 
     const nextPost = jobPosts()[currentIndex + 1];
-
-    console.log(jobPosts());
 
     setPost(nextPost.post);
   };
