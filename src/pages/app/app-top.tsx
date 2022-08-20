@@ -1,5 +1,5 @@
 import { createEffect, createSignal } from "solid-js";
-import { IoMail, IoClose } from "solid-icons/io";
+import { IoMail, IoClose, IoHeart } from "solid-icons/io";
 import { css, cx } from "@emotion/css";
 import supabase from "../../supabaseClient";
 
@@ -7,6 +7,7 @@ type PostResponse = {
   title: string;
   tags: string[];
   city: string;
+  url: string;
   company: {
     name: string;
     logo_url?: string;
@@ -101,8 +102,15 @@ const AppTop = () => {
                 }),
               ])}
             />
-            <div class="space-y-3">
-              <h3 class="text-lg font-bold">About this position</h3>
+            <div class="text-center my-8">
+              <a
+                class="btn btn-primary rounded-full"
+                target="_blank"
+                href={post().url}
+              >
+                See the detail
+              </a>
+              {/* <h3 class="text-lg font-bold">About this position</h3>
               <div>
                 Zapier’s on a mission to make everyone more productive at work.
                 As we continue to scale our mission to democratize automation,
@@ -114,14 +122,13 @@ const AppTop = () => {
                 purchasing, subscription management, and customer support.
                 You’ll be part of our team focused on making it easier for our
                 largest customers to buy Zapier. We practice...
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
-        <div class="p-5 rounded-full bg-pink-500 flex items-center gap-x-3">
-          <IoMail size={24} color="#ffffff" />
-          {/* <span class="font-semibold">Apply</span> */}
-        </div>
+        <button class="p-5 rounded-full bg-pink-500 flex items-center gap-x-3 focus:outline-none hover:bg-pink-600">
+          <IoHeart size={24} color="#ffffff" />
+        </button>
       </div>
     </>
   );
