@@ -18,6 +18,7 @@ const AppTop = () => {
   const { jobPosts, setJobPosts } = createJobPosts;
 
   const [post, setPost] = createSignal<JobPosts | Record<string, never>>({});
+  const [skills, setSkills] = createSignal<string[]>([]);
 
   createEffect(async () => {
     const authUser = supabase.auth.user();
@@ -39,6 +40,8 @@ const AppTop = () => {
       requestSkills.push(s);
     });
 
+    setSkills(requestSkills);
+
     const { data, error }: { data: { posts: JobPosts[] }; error: any } =
       await supabase.functions.invoke("startupjob-api", {
         body: JSON.stringify({ tags: requestSkills }),
@@ -53,7 +56,7 @@ const AppTop = () => {
     setPost(jobPosts()[0].post);
   });
 
-  const handleFavorite = (
+  const handleFavorite = async (
     e: MouseEvent & {
       currentTarget: HTMLButtonElement;
       target: Element;
@@ -61,9 +64,7 @@ const AppTop = () => {
   ) => {
     e.preventDefault();
 
-    const currentIndex = jobPosts().findIndex(
-      (p, index) => p.post.id === post().id
-    );
+    const currentIndex = jobPosts().findIndex((p) => p.post.id === post().id);
 
     setJobPosts((prev) => {
       const clone = [...prev];
@@ -71,6 +72,17 @@ const AppTop = () => {
       clone[currentIndex].isDone = true;
       return clone;
     });
+
+    if (currentIndex === 9) {
+      const { data, error }: { data: { posts: JobPosts[] }; error: any } =
+        await supabase.functions.invoke("startupjob-api", {
+          body: JSON.stringify({ tags: skills() }),
+        });
+
+      setJobPosts(data.posts.map((p) => ({ isDone: false, post: p })));
+      setPost(jobPosts()[0].post);
+      return;
+    }
 
     const nextPost = jobPosts()[currentIndex + 1];
 
