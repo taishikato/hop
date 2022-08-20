@@ -3,6 +3,16 @@ import { IoMail, IoClose } from "solid-icons/io";
 import { css, cx } from "@emotion/css";
 import supabase from "../../supabaseClient";
 
+type PostResponse = {
+  title: string;
+  tags: string[];
+  city: string;
+  company: {
+    name: string;
+    logo_url?: string;
+  };
+};
+
 const AppTop = () => {
   // window.addEventListener("keydown", (e) => {
   //   if (e.key === "ArrowRight") {
@@ -12,7 +22,9 @@ const AppTop = () => {
   //   }
   // });
 
-  const [post, setPost] = createSignal({});
+  const [post, setPost] = createSignal<PostResponse | Record<string, never>>(
+    {}
+  );
 
   createEffect(async () => {
     const authUser = supabase.auth.user();
@@ -36,7 +48,6 @@ const AppTop = () => {
       body: JSON.stringify({ tags: requestSkills }),
     });
 
-    console.log({ data });
     setPost(data.posts[0]);
   });
 
@@ -48,15 +59,16 @@ const AppTop = () => {
         </div>
         <div class="max-w-[600px] rounded-lg border border-slate-800">
           <div class="flex-1 p-3">
-            {/* <div
-              class={cx([
-                "h-[200px] bg-cover bg-no-repeat rounded-t-lg bg-center",
-                css({
-                  backgroundImage:
-                    "url('https://affiliatewp.com/wp-content/uploads/2017/03/add-on-zapier-for-affiliatewp.png')",
-                }),
-              ])}
-            /> */}
+            {post().company?.logo_url && (
+              <div
+                class={cx([
+                  "h-[200px] bg-auto bg-no-repeat rounded-t-lg bg-center",
+                  css({
+                    backgroundImage: `url('${post().company.logo_url}')`,
+                  }),
+                ])}
+              />
+            )}
             <div class="text-4xl font-black text-center mt-3">
               {post().company?.name}
             </div>
