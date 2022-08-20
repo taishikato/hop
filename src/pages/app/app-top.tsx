@@ -2,6 +2,7 @@ import { createEffect, createSignal } from "solid-js";
 import { IoClose, IoHeart } from "solid-icons/io";
 import { css, cx } from "@emotion/css";
 import supabase from "../../supabaseClient";
+import createLoginStatus from "../../store/createLoginStatus";
 import createJobPosts from "../../store/createJobPosts";
 import { VStack, SkeletonCircle, SkeletonText } from "@hope-ui/solid";
 import type { JobPosts } from "../../types/JobPosts";
@@ -15,6 +16,7 @@ const AppTop = () => {
   //   }
   // });
 
+  const { isLogin } = createLoginStatus;
   const { jobPosts, setJobPosts } = createJobPosts;
 
   const [post, setPost] = createSignal<JobPosts | Record<string, never>>({});
@@ -22,7 +24,21 @@ const AppTop = () => {
 
   createEffect(async () => {
     const authUser = supabase.auth.user();
-    if (authUser == null) return;
+
+    // Call API immediately and end the process if the user is not logged in
+    if (authUser == null) {
+      const dummySkills = ["javascript", "react"];
+
+      const { data, error }: { data: { posts: JobPosts[] }; error: any } =
+        await supabase.functions.invoke("startupjob-api", {
+          body: JSON.stringify({ tags: dummySkills }),
+        });
+
+      setSkills(dummySkills);
+      setJobPosts(data.posts.map((p) => ({ isDone: false, post: p })));
+
+      return;
+    }
 
     if (jobPosts().length > 0) return;
 
@@ -93,11 +109,36 @@ const AppTop = () => {
 
   return (
     <>
+      {!isLogin() && (
+        <div class="alert shadow-lg w-[700px] mx-auto">
+          <div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="stroke-info flex-shrink-0 w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <span>
+              Hop is showing you a random job post since you are not logged in
+            </span>
+          </div>
+          <div class="flex-none">
+            <button class="btn btn-sm btn-primary">Login / Sign up</button>
+          </div>
+        </div>
+      )}
       <div class="w-full flex items-center justify-center gap-x-10">
         <div class="p-5 rounded-full bg-slate-400">
           <IoClose size={24} color="#000000" />
         </div>
-        <div class="max-w-[600px] rounded-lg border border-slate-800 w-[700px]">
+        <div class="rounded-lg border border-slate-800 w-[700px]">
           {Object.keys(post()).length > 0 ? (
             <div class="flex-1 p-3">
               {post().company?.logo_url && (
