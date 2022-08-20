@@ -89,7 +89,14 @@ const AppTop = () => {
       return;
     }
 
-    const currentIndex = jobPosts().findIndex((p) => p.post.id === post().id);
+    const postId = post().id;
+    const currentIndex = jobPosts().findIndex((p) => p.post.id === postId);
+
+    const authUser = supabase.auth.user();
+    await supabase.from("favorite_jobs").insert({
+      startupjob_id: postId,
+      user_id: authUser.id,
+    });
 
     setJobPosts((prev) => {
       const clone = [...prev];
@@ -114,7 +121,7 @@ const AppTop = () => {
     setPost(nextPost.post);
   };
 
-  const handlePass = (
+  const handlePass = async (
     e: MouseEvent & {
       currentTarget: HTMLButtonElement;
       target: Element;
@@ -122,7 +129,15 @@ const AppTop = () => {
   ) => {
     e.preventDefault();
 
-    const currentIndex = jobPosts().findIndex((p) => p.post.id === post().id);
+    const postId = post().id;
+
+    const authUser = supabase.auth.user();
+    await supabase.from("passed_jobs").insert({
+      startupjob_id: postId,
+      user_id: authUser.id,
+    });
+
+    const currentIndex = jobPosts().findIndex((p) => p.post.id === postId);
 
     setJobPosts((prev) => {
       const clone = [...prev];
