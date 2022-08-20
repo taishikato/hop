@@ -6,6 +6,7 @@ import createLoginStatus from "../../store/createLoginStatus";
 import createJobPosts from "../../store/createJobPosts";
 import { VStack, SkeletonCircle, SkeletonText } from "@hope-ui/solid";
 import type { JobPosts } from "../../types/JobPosts";
+import createLoginModalStatus from "../../store/createLoginModalStatus";
 
 const AppTop = () => {
   // window.addEventListener("keydown", (e) => {
@@ -18,6 +19,7 @@ const AppTop = () => {
 
   const { isLogin } = createLoginStatus;
   const { jobPosts, setJobPosts } = createJobPosts;
+  const { onOpen } = createLoginModalStatus;
 
   const [post, setPost] = createSignal<JobPosts | Record<string, never>>({});
   const [skills, setSkills] = createSignal<string[]>([]);
@@ -130,7 +132,15 @@ const AppTop = () => {
             </span>
           </div>
           <div class="flex-none">
-            <button class="btn btn-sm btn-primary">Login / Sign up</button>
+            <button
+              class="btn btn-sm btn-primary focus:outline-none"
+              onClick={(e) => {
+                e.preventDefault();
+                onOpen();
+              }}
+            >
+              Login / Sign up
+            </button>
           </div>
         </div>
       )}
