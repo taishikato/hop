@@ -39,18 +39,45 @@ const AppTop = () => {
       requestSkills.push(s);
     });
 
-    const { data, error } = await supabase.functions.invoke("startupjob-api", {
-      body: JSON.stringify({ tags: requestSkills }),
-    });
+    const { data, error }: { data: { posts: JobPosts[] }; error: any } =
+      await supabase.functions.invoke("startupjob-api", {
+        body: JSON.stringify({ tags: requestSkills }),
+      });
 
-    setJobPosts(data.posts);
+    setJobPosts(data.posts.map((p) => ({ isDone: false, post: p })));
   });
 
   createEffect(() => {
     if (jobPosts().length === 0) return;
 
-    setPost(jobPosts()[0]);
+    setPost(jobPosts()[0].post);
   });
+
+  const handleFavorite = (
+    e: MouseEvent & {
+      currentTarget: HTMLButtonElement;
+      target: Element;
+    }
+  ) => {
+    e.preventDefault();
+
+    const currentIndex = jobPosts().findIndex(
+      (p, index) => p.post.id === post().id
+    );
+
+    setJobPosts((prev) => {
+      const clone = [...prev];
+
+      clone[currentIndex].isDone = true;
+      return clone;
+    });
+
+    const nextPost = jobPosts()[currentIndex + 1];
+
+    console.log(jobPosts());
+
+    setPost(nextPost.post);
+  };
 
   return (
     <>
@@ -135,7 +162,10 @@ const AppTop = () => {
             </VStack>
           )}
         </div>
-        <button class="p-5 rounded-full bg-pink-500 flex items-center gap-x-3 focus:outline-none hover:bg-pink-600">
+        <button
+          class="p-5 rounded-full bg-pink-500 flex items-center gap-x-3 focus:outline-none hover:bg-pink-600"
+          onClick={(e) => handleFavorite(e)}
+        >
           <IoHeart size={24} color="#ffffff" />
         </button>
       </div>
