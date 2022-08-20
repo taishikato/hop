@@ -120,10 +120,12 @@ const AppTop = () => {
               <h3 class="text-lg font-bold">Salary</h3>
               <div class="badge badge-primary p-3">$110k - 140k</div>
             </div> */}
-              <div class="text-center space-y-3 mb-8">
-                <h3 class="text-lg font-bold">Location</h3>
-                <div class="badge badge-accent p-3">{post().city}</div>
-              </div>
+              {post().city && (
+                <div class="text-center space-y-3 mb-8">
+                  <h3 class="text-lg font-bold">Location</h3>
+                  <div class="p-3">{post().city}</div>
+                </div>
+              )}
               <div class="text-center space-y-3 mb-8">
                 <h3 class="text-lg font-bold">Required Skills</h3>
                 <div class="flex gap-3 justify-center">
