@@ -114,13 +114,38 @@ const AppTop = () => {
     setPost(nextPost.post);
   };
 
+  const handlePass = (
+    e: MouseEvent & {
+      currentTarget: HTMLButtonElement;
+      target: Element;
+    }
+  ) => {
+    e.preventDefault();
+
+    const currentIndex = jobPosts().findIndex((p) => p.post.id === post().id);
+
+    setJobPosts((prev) => {
+      const clone = [...prev];
+
+      clone[currentIndex].isDone = true;
+      return clone;
+    });
+
+    const nextPost = jobPosts()[currentIndex + 1];
+
+    setPost(nextPost.post);
+  };
+
   return (
     <>
       {!isLogin() && <NoLoggedInUser />}
       <div class="w-full flex items-center justify-center gap-x-10">
-        <div class="p-5 rounded-full bg-slate-400">
+        <button
+          class="p-5 rounded-full bg-slate-400"
+          onClick={(e) => handlePass(e)}
+        >
           <IoClose size={24} color="#000000" />
-        </div>
+        </button>
         <div class="rounded-lg border border-slate-800 w-[700px]">
           {Object.keys(post()).length > 0 ? (
             <div class="flex-1 p-3">
