@@ -66,7 +66,29 @@ const AppTop = () => {
         body: JSON.stringify({ tags: requestSkills }),
       });
 
-    setJobPosts(data.posts.map((p) => ({ isDone: false, post: p })));
+    const [favoriteJobsRes, passedJobsRes] = await Promise.all([
+      supabase
+        .from("favorite_jobs")
+        .select("startupjob_id")
+        .eq("user_id", authUser.id),
+      supabase
+        .from("passed_jobs")
+        .select("startupjob_id")
+        .eq("user_id", authUser.id),
+    ]);
+
+    console.log({ favoriteJobsRes, passedJobsRes });
+
+    const favJobIds = new Set(favoriteJobsRes.data.map((d) => d.startupjob_id));
+    const passedJobIds = new Set(
+      passedJobsRes.data.map((d) => d.startupjob_id)
+    );
+
+    const filteredJobs = data.posts.filter(
+      (p) => !favJobIds.has(p.id) && !passedJobIds.has(p.id)
+    );
+
+    setJobPosts(filteredJobs.map((p) => ({ isDone: false, post: p })));
   });
 
   createEffect(() => {
