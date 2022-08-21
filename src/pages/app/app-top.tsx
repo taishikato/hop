@@ -24,9 +24,12 @@ const AppTop = () => {
 
   const [post, setPost] = createSignal<JobPosts | Record<string, never>>({});
   const [skills, setSkills] = createSignal<string[]>([]);
+  const [noMoreJob, setNoMoreJob] = createSignal(false);
 
   createEffect(async () => {
     const authUser = supabase.auth.user();
+
+    if (noMoreJob()) return;
 
     // Call API immediately and end the process if the user is not logged in
     if (authUser == null) {
@@ -43,7 +46,11 @@ const AppTop = () => {
       return;
     }
 
-    if (jobPosts().length > 0) return;
+    if (jobPosts().length > 0) {
+      console.log("jobPosts", jobPosts());
+
+      return;
+    }
 
     const { data: userData } = await supabase
       .from("users")
@@ -86,6 +93,11 @@ const AppTop = () => {
       (p) => !favJobIds.has(p.id) && !passedJobIds.has(p.id)
     );
 
+    if (filteredJobs.length === 0) {
+      setNoMoreJob(true);
+      return;
+    }
+
     setJobPosts(filteredJobs.map((p) => ({ isDone: false, post: p })));
   });
 
@@ -127,7 +139,7 @@ const AppTop = () => {
       return clone;
     });
 
-    if (currentIndex === 9) {
+    if (currentIndex === 49) {
       const { data, error }: { data: { posts: JobPosts[] }; error: any } =
         await supabase.functions.invoke("startupjob-api", {
           body: JSON.stringify({ tags: skills() }),
