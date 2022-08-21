@@ -1,13 +1,13 @@
+import type { JobPosts } from "../../types/JobPosts";
 import { createEffect, createSignal } from "solid-js";
 import { IoClose, IoHeart } from "solid-icons/io";
 import { css, cx } from "@emotion/css";
 import supabase from "../../supabaseClient";
 import createLoginStatus from "../../store/createLoginStatus";
 import createJobPosts from "../../store/createJobPosts";
-import { VStack, SkeletonCircle, SkeletonText } from "@hope-ui/solid";
-import type { JobPosts } from "../../types/JobPosts";
 import createLoginModalStatus from "../../store/createLoginModalStatus";
 import NoLoggedInUser from "./NoLoggedInUser/NoLoggedInUser";
+import SkeletonPlaceholder from "./SkeletonPlaceholder/SkeletonPlaceholder";
 
 const AppTop = () => {
   // window.addEventListener("keydown", (e) => {
@@ -76,8 +76,6 @@ const AppTop = () => {
         .select("startupjob_id")
         .eq("user_id", authUser.id),
     ]);
-
-    console.log({ favoriteJobsRes, passedJobsRes });
 
     const favJobIds = new Set(favoriteJobsRes.data.map((d) => d.startupjob_id));
     const passedJobIds = new Set(
@@ -176,15 +174,15 @@ const AppTop = () => {
   return (
     <>
       {!isLogin() && <NoLoggedInUser />}
-      <div class="w-full flex items-center justify-center gap-x-10">
-        <button
-          class="p-5 rounded-full bg-slate-400"
-          onClick={(e) => handlePass(e)}
-        >
-          <IoClose size={24} color="#000000" />
-        </button>
-        <div class="rounded-lg border border-slate-800 w-[700px]">
-          {Object.keys(post()).length > 0 ? (
+      {Object.keys(post()).length > 0 ? (
+        <div class="w-full flex items-center justify-center gap-x-10">
+          <button
+            class="p-5 rounded-full bg-slate-400"
+            onClick={(e) => handlePass(e)}
+          >
+            <IoClose size={24} color="#000000" />
+          </button>
+          <div class="rounded-lg border border-slate-800 w-[700px]">
             <div class="flex-1 p-3">
               {post().company?.logo_url && (
                 <div
@@ -253,22 +251,17 @@ const AppTop = () => {
               </div> */}
               </div>
             </div>
-          ) : (
-            <VStack alignItems="stretch" spacing="$2" class="p-8">
-              <SkeletonCircle size="$10" />
-              <SkeletonText mt="$4" noOfLines={4} spacing="$4" />
-              <SkeletonText mt="$4" noOfLines={4} spacing="$4" />
-              <SkeletonText mt="$4" noOfLines={4} spacing="$4" />
-            </VStack>
-          )}
+          </div>
+          <button
+            class="p-5 rounded-full bg-pink-500 flex items-center gap-x-3 focus:outline-none hover:bg-pink-600"
+            onClick={(e) => handleFavorite(e)}
+          >
+            <IoHeart size={24} color="#ffffff" />
+          </button>
         </div>
-        <button
-          class="p-5 rounded-full bg-pink-500 flex items-center gap-x-3 focus:outline-none hover:bg-pink-600"
-          onClick={(e) => handleFavorite(e)}
-        >
-          <IoHeart size={24} color="#ffffff" />
-        </button>
-      </div>
+      ) : (
+        <SkeletonPlaceholder />
+      )}
     </>
   );
 };
