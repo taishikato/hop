@@ -1,5 +1,5 @@
 import { children, createEffect } from "solid-js";
-import { useNavigate, useLocation } from "@solidjs/router";
+import { useNavigate } from "@solidjs/router";
 import supabase from "../supabaseClient";
 import createLoginStatus from "../store/createLoginStatus";
 import {
@@ -10,16 +10,15 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  createDisclosure,
 } from "@hope-ui/solid";
 import Header from "./Header/Header";
+import createLoginModalStatus from "../store/createLoginModalStatus";
 
 const Layout = (props) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { login } = createLoginStatus;
-  const { isOpen, onOpen, onClose } = createDisclosure();
   const c = children(() => props.children);
+  const { onOpen, isOpen, onClose } = createLoginModalStatus;
 
   const handleLogin = async () => {
     const { user, session, error } = await supabase.auth.signIn({

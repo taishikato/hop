@@ -13,11 +13,11 @@ export const skills = [
   },
   {
     title: "Next.js",
-    value: "next",
+    value: "nextjs",
   },
   {
     title: "Vue.js",
-    value: "vue",
+    value: "vuejs",
   },
   {
     title: "Python",
