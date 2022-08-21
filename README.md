@@ -23,7 +23,7 @@ I felt that existing job sites had a lot of text and overall very boring designs
 
 ### Photo
 
-<img src="https://user-images.githubusercontent.com/980588/185810162-04dcbd67-2574-4691-a8c7-44688a9867a5.jpg" width="300px>
+<img src="https://user-images.githubusercontent.com/980588/185810162-04dcbd67-2574-4691-a8c7-44688a9867a5.jpg" width="300px">
 
 ## Routes structure
 
