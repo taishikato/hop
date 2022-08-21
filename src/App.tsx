@@ -6,6 +6,7 @@ import Home from "./pages/home/home";
 import AppTop from "./pages/app/app-top";
 const Profile = lazy(() => import("./pages/profile/profile"));
 const Welcome = lazy(() => import("./pages/welcome/welcome"));
+const Favorites = lazy(() => import("./pages/favorites/favorites"));
 
 const App: Component = () => {
   return (
@@ -15,6 +16,7 @@ const App: Component = () => {
         <Route path="/app" component={AppTop} />
         <Route path="/profile" component={Profile} />
         <Route path="/welcome" component={Welcome} />
+        <Route path="/favorites" component={Favorites} />
       </Routes>
     </Layout>
   );
