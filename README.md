@@ -6,6 +6,6 @@
 * `/app` - kinda top page for logged in users
 * `/profile` - profile setting page
 
-## APIs
+## API
 
-* [taishikato/hop-api-dev](https://github.com/taishikato/hop-api-dev)
+* [taishikato/hop-api](https://github.com/taishikato/hop-api)
