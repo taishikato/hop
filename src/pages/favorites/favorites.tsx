@@ -26,7 +26,7 @@ const favorites = () => {
     setFavoriteList(data);
   });
   return (
-    <div class="w-[90%] mx-auto md:w-[700px]">
+    <div class="w-[90%] mx-auto md:w-[700px] mb-12">
       <div class="text-2xl font-bold mb-4">Favorites</div>
       {favoriteList().length > 0 ? (
         <div class="border border-slate-800 rounded-lg p-3 space-y-6">

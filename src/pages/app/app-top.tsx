@@ -238,7 +238,7 @@ const AppTop = () => {
       {noMoreJob() && <NoMoreJob />}
       {!noMoreJob() && !isLogin() && <NoLoggedInUser />}
       {!noMoreJob() && Object.keys(post()).length > 0 && (
-        <div class="w-full flex items-center justify-center gap-x-10">
+        <div class="w-full flex items-center justify-center gap-x-10 mb-12">
           <button
             class="p-5 rounded-full bg-slate-400"
             onClick={(e) => handlePass(e)}
