@@ -48,11 +48,7 @@ const AppTop = () => {
       return;
     }
 
-    console.log("jobPosts", jobPosts());
-
     if (jobPosts().length > 0) {
-      console.log("here?");
-
       return;
     }
 
@@ -65,7 +61,7 @@ const AppTop = () => {
     let requestSkills = [];
     userData.skills.forEach((s) => {
       // some keywords don't work on Startupjobs
-      if (s === "next" || s === "typescript") return;
+      if (s === "next" || s === "typescript" || s === "vuejs") return;
 
       requestSkills.push(s);
     });
