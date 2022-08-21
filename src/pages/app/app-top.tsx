@@ -46,11 +46,7 @@ const AppTop = () => {
       return;
     }
 
-    if (jobPosts().length > 0) {
-      console.log("jobPosts", jobPosts());
-
-      return;
-    }
+    if (jobPosts().length > 0) return;
 
     const { data: userData } = await supabase
       .from("users")
