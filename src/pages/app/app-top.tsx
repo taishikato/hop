@@ -104,7 +104,14 @@ const AppTop = () => {
   createEffect(() => {
     if (jobPosts().length === 0) return;
 
-    setPost(jobPosts().find((p) => !p.isDone).post);
+    const filtered = jobPosts().find((p) => !p.isDone);
+
+    if (filtered) {
+      setPost(jobPosts().find((p) => !p.isDone).post);
+      return;
+    }
+
+    setNoMoreJob(true);
   });
 
   const handleFavorite = async (
