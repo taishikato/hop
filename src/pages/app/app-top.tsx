@@ -123,12 +123,26 @@ const AppTop = () => {
       return;
     }
 
-    const postId = post().id;
+    const {
+      id: postId,
+      title,
+      country,
+      city,
+      url,
+      commitment,
+      company: { name: companyName },
+    } = post();
     const currentIndex = jobPosts().findIndex((p) => p.post.id === postId);
 
     const authUser = supabase.auth.user();
     await supabase.from("favorite_jobs").insert({
       startupjob_id: postId,
+      startupjob_title: title,
+      startupjob_commitment: commitment,
+      startupjob_url: url,
+      startupjob_company_name: companyName,
+      startupjob_city: city,
+      startupjob_country: country,
       user_id: authUser.id,
     });
 
