@@ -104,7 +104,7 @@ const AppTop = () => {
   createEffect(() => {
     if (jobPosts().length === 0) return;
 
-    setPost(jobPosts()[0].post);
+    setPost(jobPosts().find((p) => !p.isDone).post);
   });
 
   const handleFavorite = async (
