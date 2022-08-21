@@ -6,7 +6,9 @@ const createJobPosts = () => {
     { isDone: boolean; post: JobPosts }[]
   >([]);
 
-  return { jobPosts, setJobPosts };
+  const initJobPosts = () => setJobPosts([]);
+
+  return { jobPosts, setJobPosts, initJobPosts };
 };
 
 export default createRoot(createJobPosts);
