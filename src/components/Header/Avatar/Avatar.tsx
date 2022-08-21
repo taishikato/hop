@@ -29,6 +29,9 @@ const Avatar = () => {
           <Link href="/profile">Profile</Link>
         </li>
         <li>
+          <Link href="/favorites">Favorites</Link>
+        </li>
+        <li>
           <a
             onClick={(e) => {
               e.preventDefault();
