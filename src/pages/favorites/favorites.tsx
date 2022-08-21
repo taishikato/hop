@@ -26,9 +26,10 @@ const favorites = () => {
     setFavoriteList(data);
   });
   return (
-    <>
+    <div class="w-[90%] mx-auto md:w-[700px]">
+      <div class="text-2xl font-bold mb-4">Favorites</div>
       {favoriteList().length > 0 ? (
-        <div class="w-[90%] mx-auto md:w-[700px] border border-slate-800 rounded-lg p-3 space-y-6">
+        <div class="border border-slate-800 rounded-lg p-3 space-y-6">
           {favoriteList().map((item) => {
             return (
               <a
@@ -50,7 +51,7 @@ const favorites = () => {
       ) : (
         <NoItem />
       )}
-    </>
+    </div>
   );
 };
 
