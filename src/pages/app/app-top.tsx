@@ -10,13 +10,13 @@ import NoLoggedInUser from "./NoLoggedInUser/NoLoggedInUser";
 import SkeletonPlaceholder from "./SkeletonPlaceholder/SkeletonPlaceholder";
 
 const AppTop = () => {
-  // window.addEventListener("keydown", (e) => {
-  //   if (e.key === "ArrowRight") {
-  //     setId(Math.floor(Math.random() * 10) + 1);
-  //   } else if (e.key === "ArrowLeft") {
-  //     setId(Math.floor(Math.random() * 10) + 1);
-  //   }
-  // });
+  window.addEventListener("keydown", async (e) => {
+    if (e.key === "ArrowRight") {
+      await handleFavorite(e);
+    } else if (e.key === "ArrowLeft") {
+      await handlePass(e);
+    }
+  });
 
   const { isLogin } = createLoginStatus;
   const { jobPosts, setJobPosts } = createJobPosts;
@@ -96,10 +96,12 @@ const AppTop = () => {
   });
 
   const handleFavorite = async (
-    e: MouseEvent & {
-      currentTarget: HTMLButtonElement;
-      target: Element;
-    }
+    e:
+      | (MouseEvent & {
+          currentTarget: HTMLButtonElement;
+          target: Element;
+        })
+      | KeyboardEvent
   ) => {
     e.preventDefault();
 
@@ -142,10 +144,12 @@ const AppTop = () => {
   };
 
   const handlePass = async (
-    e: MouseEvent & {
-      currentTarget: HTMLButtonElement;
-      target: Element;
-    }
+    e:
+      | (MouseEvent & {
+          currentTarget: HTMLButtonElement;
+          target: Element;
+        })
+      | KeyboardEvent
   ) => {
     e.preventDefault();
 
