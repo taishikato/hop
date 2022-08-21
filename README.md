@@ -19,7 +19,7 @@ I used Supabase
 * I was interested in Solid.js, so I used it this time as a way to learn about a new technology.
 
 * During the pandemic, I had a very difficult time finding a job in Canada as an immigrant. In the process, I thought that job hunting in particular should be more fun.
-I felt that existing job sites had a lot of text and overall very boring designs, and these made the job search process boring. I created Hop in the hope that I could change this situation, even if only a little.
+I felt that most of existing job sites had a lot of text and overall very boring designs, and these made the job search process boring. I created Hop in the hope that I could change this situation, even if only a little.
 
 ### Photo
 
