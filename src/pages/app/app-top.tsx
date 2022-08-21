@@ -8,6 +8,7 @@ import createJobPosts from "../../store/createJobPosts";
 import createLoginModalStatus from "../../store/createLoginModalStatus";
 import NoLoggedInUser from "./NoLoggedInUser/NoLoggedInUser";
 import SkeletonPlaceholder from "./SkeletonPlaceholder/SkeletonPlaceholder";
+import { notificationService } from "@hope-ui/solid";
 
 const AppTop = () => {
   window.addEventListener("keydown", async (e) => {
@@ -150,6 +151,12 @@ const AppTop = () => {
     const nextPost = jobPosts()[currentIndex + 1];
 
     setPost(nextPost.post);
+
+    notificationService.show({
+      status: "success",
+      title: "Added to your favorite job list successfully",
+      duration: 3000,
+    });
   };
 
   const handlePass = async (
@@ -194,6 +201,12 @@ const AppTop = () => {
     const nextPost = jobPosts()[currentIndex + 1];
 
     setPost(nextPost.post);
+
+    notificationService.show({
+      status: "success",
+      title: "Passed",
+      duration: 3000,
+    });
   };
 
   return (
