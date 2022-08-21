@@ -139,14 +139,15 @@ const AppTop = () => {
       return clone;
     });
 
-    if (currentIndex === 49) {
-      const { data, error }: { data: { posts: JobPosts[] }; error: any } =
-        await supabase.functions.invoke("startupjob-api", {
-          body: JSON.stringify({ tags: skills() }),
-        });
+    if (currentIndex === jobPosts().length - 1) {
+      // const { data, error }: { data: { posts: JobPosts[] }; error: any } =
+      //   await supabase.functions.invoke("startupjob-api", {
+      //     body: JSON.stringify({ tags: skills() }),
+      //   });
 
-      setJobPosts(data.posts.map((p) => ({ isDone: false, post: p })));
-      setPost(jobPosts()[0].post);
+      // setJobPosts(data.posts.map((p) => ({ isDone: false, post: p })));
+      // setPost(jobPosts()[0].post);
+      setNoMoreJob(true);
       return;
     }
 
@@ -181,6 +182,18 @@ const AppTop = () => {
       clone[currentIndex].isDone = true;
       return clone;
     });
+
+    if (currentIndex === jobPosts().length - 1) {
+      // const { data, error }: { data: { posts: JobPosts[] }; error: any } =
+      //   await supabase.functions.invoke("startupjob-api", {
+      //     body: JSON.stringify({ tags: skills() }),
+      //   });
+
+      // setJobPosts(data.posts.map((p) => ({ isDone: false, post: p })));
+      // setPost(jobPosts()[0].post);
+      setNoMoreJob(true);
+      return;
+    }
 
     const nextPost = jobPosts()[currentIndex + 1];
 
