@@ -48,7 +48,7 @@ const Layout = (props) => {
 
   return (
     <>
-      <div class="bg-black text-slate-100 flex flex-col gap-y-10 min-h-screen pb-10">
+      <div class="bg-black text-slate-100 flex flex-col gap-y-10 min-h-screen">
         <Header onOpen={onOpen} />
         {c()}
       </div>
