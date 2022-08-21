@@ -2,13 +2,14 @@ import type { JobPosts } from "../../types/JobPosts";
 import { createEffect, createSignal } from "solid-js";
 import { IoClose, IoHeart } from "solid-icons/io";
 import { css, cx } from "@emotion/css";
+import { notificationService } from "@hope-ui/solid";
 import supabase from "../../supabaseClient";
 import createLoginStatus from "../../store/createLoginStatus";
 import createJobPosts from "../../store/createJobPosts";
 import createLoginModalStatus from "../../store/createLoginModalStatus";
 import NoLoggedInUser from "./NoLoggedInUser/NoLoggedInUser";
 import SkeletonPlaceholder from "./SkeletonPlaceholder/SkeletonPlaceholder";
-import { notificationService } from "@hope-ui/solid";
+import NoMoreJob from "./NoMoreJob/NoMoreJob";
 
 const AppTop = () => {
   window.addEventListener("keydown", async (e) => {
@@ -47,7 +48,13 @@ const AppTop = () => {
       return;
     }
 
-    if (jobPosts().length > 0) return;
+    console.log("jobPosts", jobPosts());
+
+    if (jobPosts().length > 0) {
+      console.log("here?");
+
+      return;
+    }
 
     const { data: userData } = await supabase
       .from("users")
@@ -211,8 +218,9 @@ const AppTop = () => {
 
   return (
     <>
-      {!isLogin() && <NoLoggedInUser />}
-      {Object.keys(post()).length > 0 ? (
+      {noMoreJob() && <NoMoreJob />}
+      {!noMoreJob() && !isLogin() && <NoLoggedInUser />}
+      {!noMoreJob() && Object.keys(post()).length > 0 && (
         <div class="w-full flex items-center justify-center gap-x-10">
           <button
             class="p-5 rounded-full bg-slate-400"
@@ -297,7 +305,8 @@ const AppTop = () => {
             <IoHeart size={24} color="#ffffff" />
           </button>
         </div>
-      ) : (
+      )}
+      {!noMoreJob() && Object.keys(post()).length === 0 && (
         <SkeletonPlaceholder />
       )}
     </>
