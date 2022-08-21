@@ -34,7 +34,10 @@ const Avatar = () => {
 
   return (
     <div class="dropdown dropdown-end">
-      <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+      <label
+        tabindex="0"
+        class="btn btn-ghost btn-circle avatar ring ring-primary ring-offset-base-100 ring-offset-2"
+      >
         <div class="avatar placeholder">
           <div class="bg-neutral-focus text-neutral-content rounded-full w-12">
             <span>{name().charAt(0)}</span>
