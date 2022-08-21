@@ -193,6 +193,12 @@ const AppTop = () => {
   ) => {
     e.preventDefault();
 
+    if (!isLogin()) {
+      onOpen();
+
+      return;
+    }
+
     const postId = post().id;
 
     const authUser = supabase.auth.user();
