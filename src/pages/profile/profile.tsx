@@ -48,7 +48,7 @@ const Profile = () => {
   });
 
   return (
-    <div class="w-[700px] mx-auto flex flex-col mb-12">
+    <div class="w-[90%] md:w-[700px] mx-auto flex flex-col mb-12">
       <H3>Basic Information</H3>
       <form
         onSubmit={async (e) => {
