@@ -332,6 +332,24 @@ const AppTop = () => {
       {!noMoreJob() && Object.keys(post()).length === 0 && (
         <SkeletonPlaceholder />
       )}
+      {!noMoreJob() && Object.keys(post()).length > 0 && (
+        <div class="block md:hidden sticky bottom-5">
+          <div class="flex items-center justify-center gap-x-24">
+            <button
+              class="p-5 rounded-full bg-slate-400"
+              onClick={(e) => handlePass(e)}
+            >
+              <IoClose size={24} color="#000000" />
+            </button>
+            <button
+              class="p-5 rounded-full bg-pink-500 items-center gap-x-3 focus:outline-none hover:bg-pink-600"
+              onClick={(e) => handleFavorite(e)}
+            >
+              <IoHeart size={24} color="#ffffff" />
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
