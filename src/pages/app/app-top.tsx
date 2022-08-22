@@ -179,7 +179,7 @@ const AppTop = () => {
     notificationService.show({
       status: "success",
       title: "Added to your favorite job list successfully",
-      duration: 3000,
+      duration: 2000,
     });
   };
 
@@ -235,7 +235,7 @@ const AppTop = () => {
     notificationService.show({
       status: "success",
       title: "Passed",
-      duration: 3000,
+      duration: 2000,
     });
   };
 
