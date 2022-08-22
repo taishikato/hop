@@ -246,12 +246,12 @@ const AppTop = () => {
       {!noMoreJob() && Object.keys(post()).length > 0 && (
         <div class="w-full flex items-center justify-center gap-x-10 mb-12">
           <button
-            class="p-5 rounded-full bg-slate-400"
+            class="p-5 rounded-full bg-slate-400 hidden md:block"
             onClick={(e) => handlePass(e)}
           >
             <IoClose size={24} color="#000000" />
           </button>
-          <div class="rounded-lg border border-slate-800 w-[700px]">
+          <div class="rounded-lg border border-slate-800 w-[90%] md:w-[700px]">
             <div class="flex-1 p-3">
               {post().company?.logo_url && (
                 <div
@@ -322,7 +322,7 @@ const AppTop = () => {
             </div>
           </div>
           <button
-            class="p-5 rounded-full bg-pink-500 flex items-center gap-x-3 focus:outline-none hover:bg-pink-600"
+            class="hidden md:block p-5 rounded-full bg-pink-500 items-center gap-x-3 focus:outline-none hover:bg-pink-600"
             onClick={(e) => handleFavorite(e)}
           >
             <IoHeart size={24} color="#ffffff" />
