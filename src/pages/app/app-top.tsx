@@ -299,7 +299,7 @@ const AppTop = () => {
               />
               <div class="text-center my-8">
                 <a
-                  class="btn btn-primary rounded-full"
+                  class="btn btn-secondary rounded-full"
                   target="_blank"
                   href={post().url}
                 >
