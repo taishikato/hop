@@ -1,6 +1,35 @@
-## Hop - tinder like job board
+# Hop - A Tinder like job board app
+## What is Hop?
+Hop is a Tinder-like job board app that you can hit the button or arrow keys to decide to pass or add it to your favourite job posting list.
 
 This is a project for Supabase Hackathon!
+
+All the development process is here!: [https://twitter.com/taishik_/status/1558484020320768007](https://twitter.com/taishik_/status/1558484020320768007)
+
+## What you can
+* Fetch job posting data via Startup.jobs API (Thanks to [@marckohlbrugge](https://twitter.com/marckohlbrugge))
+* Add job postings to your favourite job posting list and view it
+* Login / Logout with GitHub account
+* Edit your profile
+
+## Why I created Hop
+During the pandemic, I had a very difficult time finding a job in Canada as an immigrant. In the process, I thought that job hunting in particular should be more fun.
+
+I felt that most of the existing job sites had a lot of text and overall very boring designs, and these made the job search process boring.
+
+I created Hop in the hope that I could change this situation, even if only a little.
+
+## How lucky I was
+So [@marckohlbrugge](https://twitter.com/marckohlbrugge) let me use the [Startup.Jobs](https://startup.jobs/) API for Hop.
+
+I call the API on Supabase Edge Function.
+
+## Difficulties
+
+The fact that 50 jobs were retrieved together via API when the /app page of the app was launched, and that these jobs were managed in a global state.
+
+It's hard to manage them so that users don't see the same jobs multiple times.
+[It's managed mainly here](https://github.com/taishikato/hop/blob/main/src/pages/app/app-top.tsx#L33-L104)
 
 ### Demo
 https://hop-app.vercel.app/
