@@ -11,6 +11,7 @@ import NoLoggedInUser from "./NoLoggedInUser/NoLoggedInUser";
 import SkeletonPlaceholder from "./SkeletonPlaceholder/SkeletonPlaceholder";
 import NoMoreJob from "./NoMoreJob/NoMoreJob";
 import PassButton from "./PassButton/PassButton";
+import FavButton from "./FavButton/FavButton";
 
 const AppTop = () => {
   window.addEventListener("keydown", async (e) => {
@@ -317,12 +318,7 @@ const AppTop = () => {
               </div>
             </div>
           </div>
-          <button
-            class="hidden md:block p-5 rounded-full bg-pink-500 items-center gap-x-3 focus:outline-none hover:bg-pink-600"
-            onClick={(e) => handleFavorite(e)}
-          >
-            <IoHeart size={24} color="#ffffff" />
-          </button>
+          <FavButton handleFunction={handleFavorite} />
         </div>
       )}
       {!noMoreJob() && Object.keys(post()).length === 0 && (
@@ -332,12 +328,7 @@ const AppTop = () => {
         <div class="block md:hidden sticky bottom-5">
           <div class="flex items-center justify-center gap-x-24">
             <PassButton handleFunction={handlePass} forMobile />
-            <button
-              class="p-5 rounded-full bg-pink-500 items-center gap-x-3 focus:outline-none hover:bg-pink-600"
-              onClick={(e) => handleFavorite(e)}
-            >
-              <IoHeart size={24} color="#ffffff" />
-            </button>
+            <FavButton handleFunction={handleFavorite} forMobile />
           </div>
         </div>
       )}
