@@ -4,8 +4,7 @@ const SkeletonPlaceholder = () => (
   <VStack
     alignItems="stretch"
     spacing="$2"
-    class="p-8 rounded-lg border border-slate-800"
-    w={700}
+    class="p-8 rounded-lg border border-slate-800 md:w-[700px] w-[90%]"
     mx="auto"
   >
     <SkeletonCircle size="$10" />
