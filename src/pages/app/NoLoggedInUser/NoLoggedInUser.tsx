@@ -4,7 +4,7 @@ const NoLoggedInUser = () => {
   const { onOpen } = createLoginModalStatus;
 
   return (
-    <div class="alert shadow-lg w-[700px] mx-auto">
+    <div class="alert shadow-lg w-[90%] md:w-[700px] mx-auto">
       <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
