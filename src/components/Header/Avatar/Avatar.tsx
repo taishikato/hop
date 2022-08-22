@@ -20,8 +20,12 @@ const Avatar = () => {
   };
 
   createEffect(async () => {
-    const authUser = supabase.auth.user();
-    if (authUser == null) return;
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (session == null) return;
+
+    const authUser = session.user;
 
     const { data }: { data: { name: string } } = await supabase
       .from("users")

@@ -21,7 +21,7 @@ const Layout = (props) => {
   const { onOpen, isOpen, onClose } = createLoginModalStatus;
 
   const handleLogin = async () => {
-    const { user, session, error } = await supabase.auth.signIn({
+    const { user, session, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
     });
   };

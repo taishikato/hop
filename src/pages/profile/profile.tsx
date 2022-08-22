@@ -30,9 +30,13 @@ const Profile = () => {
   const [updateSkills, setUpdateSkills] = createSignal<Set<string>>(new Set());
 
   createEffect(async () => {
-    const user = supabase.auth.user();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
 
-    if (user == null) navigate("/app");
+    if (session == null) navigate("/app");
+
+    const user = session.user;
 
     const { data } = await supabase
       .from("users")

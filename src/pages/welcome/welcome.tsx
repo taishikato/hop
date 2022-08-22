@@ -55,7 +55,14 @@ const Welcome = () => {
   const register = async () => {
     setRegistering(true);
 
-    const user = supabase.auth.user();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (session == null) return;
+
+    const user = session.user;
+
     const { data, error } = await supabase.from("users").insert({
       id: user.id,
       name: name(),

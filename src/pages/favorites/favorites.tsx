@@ -16,7 +16,13 @@ const favorites = () => {
   const [favoriteList, setFavoriteList] = createSignal<FavoriteItem[]>([]);
 
   createEffect(async () => {
-    const authUser = supabase.auth.user();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    if (session == null) return;
+
+    const authUser = session.user;
 
     const { data, error } = await supabase
       .from("favorite_jobs")

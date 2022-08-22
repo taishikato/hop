@@ -31,12 +31,14 @@ const AppTop = () => {
   const [noMoreJob, setNoMoreJob] = createSignal(false);
 
   createEffect(async () => {
-    const authUser = supabase.auth.user();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
 
     if (noMoreJob()) return;
 
     // Call API immediately and end the process if the user is not logged in
-    if (authUser == null) {
+    if (session == null) {
       const dummySkills = ["javascript", "react"];
 
       const { data, error }: { data: { posts: JobPosts[] }; error: any } =
@@ -49,6 +51,8 @@ const AppTop = () => {
 
       return;
     }
+
+    const authUser = session.user;
 
     if (jobPosts().length > 0) {
       return;
@@ -143,7 +147,11 @@ const AppTop = () => {
     } = post();
     const currentIndex = jobPosts().findIndex((p) => p.post.id === postId);
 
-    const authUser = supabase.auth.user();
+    const {
+      data: {
+        session: { user: authUser },
+      },
+    } = await supabase.auth.getSession();
     await supabase.from("favorite_jobs").insert({
       startupjob_id: postId,
       startupjob_title: title,
@@ -203,7 +211,11 @@ const AppTop = () => {
 
     const postId = post().id;
 
-    const authUser = supabase.auth.user();
+    const {
+      data: {
+        session: { user: authUser },
+      },
+    } = await supabase.auth.getSession();
     await supabase.from("passed_jobs").insert({
       startupjob_id: postId,
       user_id: authUser.id,
