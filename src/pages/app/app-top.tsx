@@ -1,6 +1,6 @@
 import type { JobPosts } from "../../types/JobPosts";
 import { createEffect, createSignal } from "solid-js";
-import { IoClose, IoHeart } from "solid-icons/io";
+import { IoHeart } from "solid-icons/io";
 import { css, cx } from "@emotion/css";
 import { notificationService } from "@hope-ui/solid";
 import supabase from "../../supabaseClient";
@@ -10,6 +10,7 @@ import createLoginModalStatus from "../../store/createLoginModalStatus";
 import NoLoggedInUser from "./NoLoggedInUser/NoLoggedInUser";
 import SkeletonPlaceholder from "./SkeletonPlaceholder/SkeletonPlaceholder";
 import NoMoreJob from "./NoMoreJob/NoMoreJob";
+import PassButton from "./PassButton/PassButton";
 
 const AppTop = () => {
   window.addEventListener("keydown", async (e) => {
@@ -245,12 +246,7 @@ const AppTop = () => {
       {!noMoreJob() && !isLogin() && <NoLoggedInUser />}
       {!noMoreJob() && Object.keys(post()).length > 0 && (
         <div class="w-full flex items-center justify-center gap-x-10 mb-12">
-          <button
-            class="p-5 rounded-full bg-slate-400 hidden md:block"
-            onClick={(e) => handlePass(e)}
-          >
-            <IoClose size={24} color="#000000" />
-          </button>
+          <PassButton handleFunction={handlePass} />
           <div class="rounded-lg border border-slate-800 w-[90%] md:w-[700px]">
             <div class="flex-1 p-3">
               {post().company?.logo_url && (
@@ -335,12 +331,7 @@ const AppTop = () => {
       {!noMoreJob() && Object.keys(post()).length > 0 && (
         <div class="block md:hidden sticky bottom-5">
           <div class="flex items-center justify-center gap-x-24">
-            <button
-              class="p-5 rounded-full bg-slate-400"
-              onClick={(e) => handlePass(e)}
-            >
-              <IoClose size={24} color="#000000" />
-            </button>
+            <PassButton handleFunction={handlePass} forMobile />
             <button
               class="p-5 rounded-full bg-pink-500 items-center gap-x-3 focus:outline-none hover:bg-pink-600"
               onClick={(e) => handleFavorite(e)}
