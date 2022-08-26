@@ -285,7 +285,7 @@ const AppTop = () => {
               {post().city && (
                 <div class="text-center space-y-3 mb-8">
                   <h3 class="text-lg font-bold">Location</h3>
-                  <div class="p-3">{post().city}</div>
+                  <div>{post().city}</div>
                 </div>
               )}
               <div class="text-center space-y-3 mb-8">
