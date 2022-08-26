@@ -1,6 +1,5 @@
 import type { JobPosts } from "../../types/JobPosts";
 import { createEffect, createSignal } from "solid-js";
-import { IoHeart } from "solid-icons/io";
 import { css, cx } from "@emotion/css";
 import { notificationService } from "@hope-ui/solid";
 import supabase from "../../supabaseClient";
@@ -285,7 +284,14 @@ const AppTop = () => {
               {post().city && (
                 <div class="text-center space-y-3 mb-8">
                   <h3 class="text-lg font-bold">Location</h3>
-                  <div>{post().city}</div>
+                  <div class="flex gap-x-3 items-center justify-center">
+                    {post().city}{" "}
+                    {post().remote && (
+                      <>
+                        <div class="badge badge-accent">Remote</div>
+                      </>
+                    )}
+                  </div>
                 </div>
               )}
               <div class="text-center space-y-3 mb-8">

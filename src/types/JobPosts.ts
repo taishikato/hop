@@ -5,6 +5,7 @@ export type JobPosts = {
   tags: string[];
   city: string;
   country: string;
+  remote: boolean;
   url: string;
   company: {
     name: string;
