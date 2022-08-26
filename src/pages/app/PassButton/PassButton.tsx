@@ -8,7 +8,7 @@ const PassButton = ({ handleFunction, forMobile = false }) => {
       }`}
       onClick={(e) => handleFunction(e)}
     >
-      <IoClose size={24} color="#000000" />
+      <span class="block w-[24px] h-[24px]">👋</span>
     </button>
   );
 };

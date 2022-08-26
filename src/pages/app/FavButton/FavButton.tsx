@@ -8,7 +8,8 @@ const FavButton = ({ handleFunction, forMobile = false }) => {
       }`}
       onClick={(e) => handleFunction(e)}
     >
-      <IoHeart size={24} color="#ffffff" />
+      {/* <IoHeart size={24} color="#ffffff" /> */}
+      <span class="block w-[24px] h-[24px]">🧡</span>
     </button>
   );
 };
