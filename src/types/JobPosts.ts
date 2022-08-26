@@ -1,6 +1,7 @@
 export type JobPosts = {
   id: number;
   commitment: string;
+  body: string;
   title: string;
   tags: string[];
   city: string;

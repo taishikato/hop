@@ -260,7 +260,7 @@ const AppTop = () => {
         <div class="w-full flex items-center justify-center gap-x-10 mb-12">
           <PassButton handleFunction={handlePass} />
           <div class="rounded-lg border border-slate-800 w-[90%] md:w-[700px]">
-            <div class="flex-1 p-3">
+            <div class="flex-1 p-5">
               {post().company?.logo_url && (
                 <div
                   class={cx([
@@ -312,27 +312,20 @@ const AppTop = () => {
                   }),
                 ])}
               />
-              <div class="text-center my-8">
-                <a
-                  class="btn btn-secondary rounded-full"
-                  target="_blank"
-                  href={post().url}
-                >
-                  See the detail
-                </a>
-                {/* <h3 class="text-lg font-bold">About this position</h3>
-              <div>
-                Zapier’s on a mission to make everyone more productive at work.
-                As we continue to scale our mission to democratize automation,
-                we’re hiring Frontend Engineers across the organization. Zapier
-                has helped millions of people build businesses through the power
-                of automation. Here is the team you might join: Billing team.
-                The Billing Team strives to make it incredibly easy to purchase
-                Zapier across the globe. Join us as we build systems that power
-                purchasing, subscription management, and customer support.
-                You’ll be part of our team focused on making it easier for our
-                largest customers to buy Zapier. We practice...
-              </div> */}
+              <div class="space-y-8 mb-4">
+                <div>
+                  <h3 class="text-lg font-bold mb-2">About this position</h3>
+                  <div>{post().body}</div>
+                </div>
+                <div class="text-center">
+                  <a
+                    class="btn btn-secondary rounded-full"
+                    target="_blank"
+                    href={post().url}
+                  >
+                    See the detail
+                  </a>
+                </div>
               </div>
             </div>
           </div>
